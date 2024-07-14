@@ -20,8 +20,6 @@ springdoc:
     urls:
       - url: /v3/api-docs
         name: API Gateway Service
-      - url: /amazon-services/v3/api-docs
-        name: amazon-services
       - url: /create-recipe/v3/api-docs
         name: create-recipe
       - url: /credentials/v3/api-docs
