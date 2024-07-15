@@ -12,7 +12,7 @@ import com.foodrecipes.searchprofile.entity.UserProfile;
 import com.foodrecipes.searchprofile.service.UserProfileService;
 
 @RestController
-@RequestMapping("/search-profile/")
+@RequestMapping("/search-profile")
 public class SearchController {
 	
 	@Autowired
