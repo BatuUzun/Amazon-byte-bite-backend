@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.foodrecipes.profileapi.constants.Constants;
+import com.foodrecipes.profileapi.dto.FollowCountsDTO;
 import com.foodrecipes.profileapi.dto.FollowRequest;
-import com.foodrecipes.profileapi.entity.FollowCountsDTO;
 import com.foodrecipes.profileapi.entity.UserFollows;
 import com.foodrecipes.profileapi.entity.UserProfile;
 import com.foodrecipes.profileapi.proxy.Amazons3Proxy;
+import com.foodrecipes.profileapi.proxy.ProfileRecipeProxy;
 import com.foodrecipes.profileapi.response.ResultResponse;
 import com.foodrecipes.profileapi.service.UserFollowsService;
 import com.foodrecipes.profileapi.service.UserProfileService;
@@ -27,6 +28,9 @@ public class ProfileController {
 	
 	@Autowired
 	private Amazons3Proxy profileProxy;
+	
+	@Autowired
+	private ProfileRecipeProxy profileRecipeProxy;
 	
 	@Autowired
     private UserFollowsService userFollowsService;
@@ -43,7 +47,7 @@ public class ProfileController {
 			if(!currentPP.equals(Constants.DEFAULT_PROFILE_IMAGE)) {
 				profileProxy.delete(currentPP);
 			}
-				
+			
 			response = profileProxy.upload(file);
 		    
 		    String imageName = "";
@@ -113,17 +117,10 @@ public class ProfileController {
 		}
 		long followingsCount = userFollowsService.getFollowingsCount(id);
 		long followersCount = userFollowsService.getFollowersCount(id);
-		FollowCountsDTO followCountsDTO = new FollowCountsDTO(followingsCount, followersCount);
-	    return ResponseEntity.ok(followCountsDTO);
-    }
-	
-	@GetMapping("/user/{id}/followings/count")
-    public long getFollowingsCount(@PathVariable Long id) {
-		if(!userProfileService.isUserProfileExist(id)) {
-			return -1;
-		}
+		long recipeCount = profileRecipeProxy.countRecipesByOwnerId(id);
 		
-        return userFollowsService.getFollowingsCount(id);
+		FollowCountsDTO followCountsDTO = new FollowCountsDTO(followingsCount, followersCount, recipeCount);
+	    return ResponseEntity.ok(followCountsDTO);
     }
 
 }

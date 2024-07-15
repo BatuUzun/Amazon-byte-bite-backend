@@ -1,12 +1,14 @@
-package com.foodrecipes.profileapi.entity;
+package com.foodrecipes.profileapi.dto;
 
 public class FollowCountsDTO {
     private long followingsCount;
     private long followersCount;
+    private long recipeCount;
 
-    public FollowCountsDTO(long followingsCount, long followersCount) {
+    public FollowCountsDTO(long followingsCount, long followersCount, long recipeCount) {
         this.followingsCount = followingsCount;
         this.followersCount = followersCount;
+        this.recipeCount = recipeCount;
     }
 
     public long getFollowingsCount() {
@@ -27,6 +29,14 @@ public class FollowCountsDTO {
 
 	public FollowCountsDTO() {
 		
+	}
+
+	public long getRecipeCount() {
+		return recipeCount;
+	}
+
+	public void setRecipeCount(long recipeCount) {
+		this.recipeCount = recipeCount;
 	}
     
     
