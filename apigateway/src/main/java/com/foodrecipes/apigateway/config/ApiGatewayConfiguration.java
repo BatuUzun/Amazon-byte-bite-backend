@@ -35,7 +35,8 @@ public class ApiGatewayConfiguration {
 				.route(p -> p.path("/create-recipe/**")
 						.uri("lb://create-recipe"))
 				
-				
+				.route(p -> p.path("/profile-recipe/**")
+						.uri("lb://profile-recipe"))
 				
 				.build();
 					
