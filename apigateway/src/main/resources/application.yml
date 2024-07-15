@@ -31,4 +31,6 @@ springdoc:
       - url: /profile-picture-downloader/v3/api-docs
         name: profile-picture-downloader
       - url: /search-profile/v3/api-docs
-        name: search-profile  
+        name: search-profile
+      - url: /profile-recipe/v3/api-docs
+        name: profile-recipe  
