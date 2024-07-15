@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,15 @@ public class S3Controller {
 	private Environment environment;
 	
 	@GetMapping("/download/{fileName}")
-	public ResponseEntity<byte[]> getImage(@PathVariable("fileName") String imageName) throws IOException {
+	public String getImageBase64(@PathVariable("fileName") String imageName) throws IOException {
+	    S3Object imageObject = s3Service.getFileFromS3(imageName);
+	    byte[] imageBytes = IOUtils.toByteArray(imageObject.getObjectContent());
+	    
+	    String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+	    
+	    return base64Image;
+	}
+	/*public ResponseEntity<byte[]> getImage(@PathVariable("fileName") String imageName) throws IOException {
         S3Object imageObject = s3Service.getFileFromS3(imageName);
         byte[] imageBytes = IOUtils.toByteArray(imageObject.getObjectContent());
         
@@ -39,7 +48,7 @@ public class S3Controller {
         String port = environment.getProperty("local.server.port");
         System.out.println("port: " + port);
         return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
-    }
+    }*/
 	
 	
 	@PostMapping("/download/images")

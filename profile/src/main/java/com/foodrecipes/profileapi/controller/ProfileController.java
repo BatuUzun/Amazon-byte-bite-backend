@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.foodrecipes.profileapi.constants.Constants;
 import com.foodrecipes.profileapi.dto.FollowRequest;
+import com.foodrecipes.profileapi.entity.FollowCountsDTO;
 import com.foodrecipes.profileapi.entity.UserFollows;
 import com.foodrecipes.profileapi.entity.UserProfile;
 import com.foodrecipes.profileapi.proxy.Amazons3Proxy;
@@ -105,13 +106,15 @@ public class ProfileController {
         
     }
 	
-	@GetMapping("/user/{id}/followers/count")
-    public long getFollowersCount(@PathVariable Long id) {
+	@GetMapping("/user/{id}/followers-followings/count")
+    public ResponseEntity<FollowCountsDTO> getFollowersCount(@PathVariable Long id) {
 		if(!userProfileService.isUserProfileExist(id)) {
-			return -1;
+			 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
-		
-        return userFollowsService.getFollowersCount(id);
+		long followingsCount = userFollowsService.getFollowingsCount(id);
+		long followersCount = userFollowsService.getFollowersCount(id);
+		FollowCountsDTO followCountsDTO = new FollowCountsDTO(followingsCount, followersCount);
+	    return ResponseEntity.ok(followCountsDTO);
     }
 	
 	@GetMapping("/user/{id}/followings/count")
