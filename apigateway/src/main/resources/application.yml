@@ -33,4 +33,9 @@ springdoc:
       - url: /search-profile/v3/api-docs
         name: search-profile
       - url: /profile-recipe/v3/api-docs
-        name: profile-recipe  
+        name: profile-recipe
+      - url: /recipe-getter/v3/api-docs
+        name: recipe-getter
+      - url: /like-dislike/v3/api-docs
+        name: like-dislike
+        
