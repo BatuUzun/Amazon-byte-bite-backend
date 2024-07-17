@@ -1,49 +1,73 @@
-package com.foodrecipes.createrecipe.entity;
+package com.foodrecipes.createrecipe.dto;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.web.multipart.MultipartFile;
 
-@Entity
-@Table(name = "recipe")
-public class Recipe {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+public class CreateRecipeDTO {
+	
+	private Long id;
+
     private String name;
 
-    @Column(columnDefinition = "TEXT")
     private String description;
-    @Column(columnDefinition = "TEXT")
+    
     private String cuisine;
-    @Column(columnDefinition = "TEXT")
+    
     private String course;
-    @Column(columnDefinition = "TEXT")
+    
     private String diet;
-    @Column(columnDefinition = "TEXT")
+    
     private String prepTime;
-    @Column(columnDefinition = "TEXT")
+    
     private String ingredients;    
-    @Column(columnDefinition = "TEXT")
+    
     private String instructions;
-    @Column(columnDefinition = "TEXT")
+    
     private String image;
 
-    @Column(name = "date_created", nullable = false)
     private LocalDateTime dateCreated = LocalDateTime.now();
 
-    @Column(name = "owner_id", nullable = false)
     private Long ownerId;
 
+    private MultipartFile file;
+    
     private Boolean type;
+    
+    private Boolean isImgChanged;
+    
+	public CreateRecipeDTO(Long id, String name, String description, String cuisine, String course, String diet,
+			String prepTime, String ingredients, String instructions, String image, LocalDateTime dateCreated,
+			Long ownerId, MultipartFile file, Boolean type, Boolean isImgChanged) 
+	{
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.cuisine = cuisine;
+		this.course = course;
+		this.diet = diet;
+		this.prepTime = prepTime;
+		this.ingredients = ingredients;
+		this.instructions = instructions;
+		this.image = image;
+		this.dateCreated = dateCreated;
+		this.ownerId = ownerId;
+		this.file = file;
+		this.type = type;
+		this.isImgChanged = isImgChanged;
+	}
+	
+	public void setIsImgChanged(Boolean change) {
+		this.isImgChanged = change;
+	}
+	
+	public Boolean getIsImgChanged() {
+		return this.isImgChanged;
+	}
+	
+	public CreateRecipeDTO() {
+	}
 
 	public Long getId() {
 		return id;
@@ -141,6 +165,14 @@ public class Recipe {
 		this.ownerId = ownerId;
 	}
 
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
 	public Boolean getType() {
 		return type;
 	}
@@ -148,31 +180,5 @@ public class Recipe {
 	public void setType(Boolean type) {
 		this.type = type;
 	}
-
-	public Recipe(Long id, String name, String description, String cuisine, String course, String diet, String prepTime,
-			String ingredients, String instructions, String image, LocalDateTime dateCreated, Long ownerId,
-			Boolean type) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.cuisine = cuisine;
-		this.course = course;
-		this.diet = diet;
-		this.prepTime = prepTime;
-		this.ingredients = ingredients;
-		this.instructions = instructions;
-		this.image = image;
-		this.dateCreated = dateCreated;
-		this.ownerId = ownerId;
-		this.type = type;
-	}
-
-	public Recipe() {
-		super();
-	}
-
-    // Getters and Setters
-    
-    
+	
 }

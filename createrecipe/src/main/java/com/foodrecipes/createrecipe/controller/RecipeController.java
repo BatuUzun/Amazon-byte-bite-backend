@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.foodrecipes.createrecipe.dto.CreateRecipeDTO;
 import com.foodrecipes.createrecipe.entity.Recipe;
 import com.foodrecipes.createrecipe.proxy.Amazons3Proxy;
 import com.foodrecipes.createrecipe.proxy.ProfileProxy;
@@ -35,11 +38,13 @@ public class RecipeController {
 	private ProfileProxy profileProxy;
 
 	@PostMapping("/create-draft")
-	public Recipe createRecipeDraftWithImage(@RequestParam("name") String name,
-			@RequestParam("ingredients") String ingredients, @RequestParam("instructions") String instructions,
-			@RequestParam("file") MultipartFile file, @RequestParam("ownerId") Long ownerId) throws IOException {
-		if(profileProxy.isUserExistById(ownerId) && !name.trim().equals("")) {
-			ResultResponse response = amazons3Proxy.uploadRecipe(file);
+	public Recipe createRecipeDraftWithImage(
+			@RequestBody CreateRecipeDTO createRecipeDTO
+			) throws IOException 
+	{
+		
+		if(profileProxy.isUserExistById(createRecipeDTO.getOwnerId()) && !createRecipeDTO.getName().trim().equals("")) {
+			ResultResponse response = amazons3Proxy.uploadRecipe(createRecipeDTO.getFile());
 			
 			String imageName = "";
 		    if (response.getResult() instanceof String) {
@@ -51,16 +56,17 @@ public class RecipeController {
 			
 			Recipe recipe = new Recipe();
 			
-	        recipe.setName(name);
-	        recipe.setIngredients(ingredients);
-	        recipe.setInstructions(instructions);
+	        recipe.setName(createRecipeDTO.getName());
+	        recipe.setIngredients(createRecipeDTO.getIngredients());
+	        recipe.setInstructions(createRecipeDTO.getInstructions());
+	        
 	        if(imageName.equals("")) {
 	        	recipe.setImage(null);
 	        }
 	        else {
 	        	recipe.setImage(imageName);	
 	        }
-	        recipe.setOwnerId(ownerId);
+	        recipe.setOwnerId(createRecipeDTO.getOwnerId());
 	        recipe.setType(false);
 			return recipeService.saveRecipe(recipe);
 		}
@@ -69,14 +75,15 @@ public class RecipeController {
 	}
 	
 	@PostMapping("/create-recipe")
-	public Recipe createRecipe(@RequestParam("name") String name,
-			@RequestParam("ingredients") String ingredients, @RequestParam("instructions") String instructions,
-			@RequestParam("file") MultipartFile file, @RequestParam("ownerId") Long ownerId) throws IOException {
-		if(profileProxy.isUserExistById(ownerId)) {
-			if(name.trim().equals("") || ingredients.trim().equals("") || instructions.trim().equals("")) {
+	public Recipe createRecipe(
+			@RequestBody CreateRecipeDTO createRecipeDTO
+			) throws IOException {
+		
+		if(profileProxy.isUserExistById(createRecipeDTO.getOwnerId())) {
+			if(createRecipeDTO.getName().trim().equals("") || createRecipeDTO.getIngredients().trim().equals("") || createRecipeDTO.getInstructions().trim().equals("")) {
 				return null;
 			}
-			ResultResponse response = amazons3Proxy.uploadRecipe(file);
+			ResultResponse response = amazons3Proxy.uploadRecipe(createRecipeDTO.getFile());
 			
 			String imageName = "";
 		    if (response.getResult() instanceof String) {
@@ -92,11 +99,11 @@ public class RecipeController {
 			
 			Recipe recipe = new Recipe();
 			
-	        recipe.setName(name);
-	        recipe.setIngredients(ingredients);
-	        recipe.setInstructions(instructions);
+	        recipe.setName(createRecipeDTO.getName());
+	        recipe.setIngredients(createRecipeDTO.getIngredients());
+	        recipe.setInstructions(createRecipeDTO.getInstructions());
 	        recipe.setImage(imageName);
-	        recipe.setOwnerId(ownerId);
+	        recipe.setOwnerId(createRecipeDTO.getOwnerId());
 	        recipe.setType(true);
 	        
 			return recipeService.saveRecipe(recipe);
@@ -126,25 +133,24 @@ public class RecipeController {
 			
 	        recipeService.deleteRecipeById(id);
 
-			
 		}
 		
     }
 	
 	@PutMapping("/update-recipe")
-	public ResponseEntity<Recipe> updateRecipe(@RequestParam("name") String name, @RequestParam("id") Long id,
-	        @RequestParam("ingredients") String ingredients, @RequestParam("instructions") String instructions,
-	        @RequestParam("file") MultipartFile file, @RequestParam("isImageChanged") boolean isImageChanged,
-	        @RequestParam("type") boolean type) {
-		System.out.println(file);
-	    Recipe recipe = recipeService.findById(id);
-	    if (recipe != null && !name.trim().isEmpty()) {
+	public ResponseEntity<Recipe> updateRecipe(
+			@RequestBody CreateRecipeDTO createRecipeDTO)
+	{
+		
+		System.out.println(createRecipeDTO.getFile());
+	    Recipe recipe = recipeService.findById(createRecipeDTO.getId());
+	    if (recipe != null && !createRecipeDTO.getName().trim().isEmpty()) {
 	        ResultResponse response = null;
-	        if (isImageChanged) {
+	        if (createRecipeDTO.getIsImgChanged()) {
 	        	if(recipe.getImage() != null)
 	        		amazons3Proxy.deleteRecipe(recipe.getImage());
-	        	if(file != null && !file.isEmpty())
-	        		response = amazons3Proxy.uploadRecipe(file);
+	        	if(createRecipeDTO.getFile() != null && !createRecipeDTO.getFile().isEmpty())
+	        		response = amazons3Proxy.uploadRecipe(createRecipeDTO.getFile());
 
 	            String imageName = null;
 	            if(response != null) {
@@ -158,16 +164,16 @@ public class RecipeController {
 	            
 	            recipe.setImage(imageName);
 	        }
+	        
+	        recipe.setIngredients(createRecipeDTO.getIngredients());
+	        recipe.setInstructions(createRecipeDTO.getInstructions());
+	        recipe.setName(createRecipeDTO.getName());
+	        recipe.setDateCreated(LocalDateTime.now()); // Update dateCreated here
 
-	        recipe.setIngredients(ingredients);
-	        recipe.setInstructions(instructions);
-	        recipe.setName(name);
-	        recipe.setDateCreated(); // Update dateCreated here
-
-	        if (ingredients.isBlank() || instructions.isBlank() || recipe.getImage() == null || recipe.getImage().trim().isEmpty()) {
+	        if (createRecipeDTO.getIngredients().isBlank() || createRecipeDTO.getInstructions().isBlank() || recipe.getImage() == null || recipe.getImage().trim().isEmpty()) {
 	            recipe.setType(false);
 	        } else {
-	            recipe.setType(type);
+	            recipe.setType(createRecipeDTO.getType());
 	        }
 
 	        recipeService.updateRecipe(recipe);
