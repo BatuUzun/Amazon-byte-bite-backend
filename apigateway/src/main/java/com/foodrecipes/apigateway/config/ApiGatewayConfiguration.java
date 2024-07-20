@@ -29,6 +29,9 @@ public class ApiGatewayConfiguration {
 				.route(p -> p.path("/profile-picture-downloader/**")
 						.uri("lb://profile-picture-downloader"))
 				
+				.route(p -> p.path("/recipe-picture-downloader/**")
+						.uri("lb://recipe-picture-downloader"))
+				
 				.route(p -> p.path("/search-profile/**")
 						.uri("lb://search-profile"))
 				

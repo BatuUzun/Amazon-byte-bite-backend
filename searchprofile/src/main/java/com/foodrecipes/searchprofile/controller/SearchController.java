@@ -24,6 +24,10 @@ public class SearchController {
     public List<UserProfile> searchUserProfiles(@RequestBody SearchCriteria searchCriteria) {
     	String port = environment.getProperty("local.server.port");
         System.out.println("port: " + port);
+        List<UserProfile> list = userProfileService.searchUserProfilesByUsername(searchCriteria.getUsername(), searchCriteria.getPage());
+        for(int i = 0; i<list.size();i++) {
+        	System.out.println(list.get(i).getProfilePicture());
+        }
         return userProfileService.searchUserProfilesByUsername(searchCriteria.getUsername(), searchCriteria.getPage());
     }
 	
