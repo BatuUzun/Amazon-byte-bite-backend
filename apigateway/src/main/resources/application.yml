@@ -40,4 +40,6 @@ springdoc:
         name: recipe-getter
       - url: /like-dislike/v3/api-docs
         name: like-dislike
+      - url: /favorite/v3/api-docs
+        name: favorite
         

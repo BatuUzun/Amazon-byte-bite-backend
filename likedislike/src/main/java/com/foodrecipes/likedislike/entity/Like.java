@@ -81,8 +81,5 @@ public class Like {
 
 	public Like() {
 		super();
-	}
-
-    // Getters and Setters
-    
+	}    
 }
