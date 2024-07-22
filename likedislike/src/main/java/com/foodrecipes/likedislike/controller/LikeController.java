@@ -24,20 +24,17 @@ public class LikeController {
 	@GetMapping("/count")
     public LikeCountResponse getLikeCounts(@RequestParam Long recipeId) {
         long likes = likeService.countLikes(recipeId);
-        long dislikes = likeService.countDislikes(recipeId);
-
-        return new LikeCountResponse(likes, dislikes);
+        System.out.println("COUNT");
+        return new LikeCountResponse(likes);
     }
 	
 	@GetMapping("/check-like")
-    public Like getLike(@RequestParam Long recipeId, @RequestParam Long userId) {
-        return likeService.getLike(recipeId, userId);
+    public boolean getLike(@RequestParam Long recipeId, @RequestParam Long userId) {
+		return likeService.existsByRecipeIdAndUserId(recipeId, userId);
     }
 	
 	@PostMapping("/add-like")
-    public Like addLike(@RequestBody Like like) {
-		System.out.println("ADD: userId: "+ like.getUserId()+" recipeId"+like.getRecipeId());
-		
+    public Like addLike(@RequestBody Like like) {		
         return likeService.addLike(like);
     }
 	
