@@ -150,7 +150,7 @@ public class Recipe {
 	}
 
 	public Recipe(Long id, String name, String description, String cuisine, String course, String diet, String prepTime,
-			String ingredients, String instructions, String image, LocalDateTime dateCreated, Long ownerId,
+			String ingredients, String instructions, String image, Long ownerId,
 			Boolean type) {
 		super();
 		this.id = id;
@@ -163,7 +163,6 @@ public class Recipe {
 		this.ingredients = ingredients;
 		this.instructions = instructions;
 		this.image = image;
-		this.dateCreated = dateCreated;
 		this.ownerId = ownerId;
 		this.type = type;
 	}

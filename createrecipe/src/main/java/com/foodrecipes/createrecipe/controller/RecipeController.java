@@ -48,7 +48,6 @@ public class RecipeController {
 	        @RequestParam("ingredients") String ingredients,
 	        @RequestParam("instructions") String instructions,
 	        @RequestParam("image") String image,
-	        @RequestParam("dateCreated") LocalDateTime dateCreated,
 	        @RequestParam("ownerId") Long ownerId,
 	        @RequestParam("type") Boolean type,
 	        @RequestParam("isImgChanged") Boolean isImgChanged
@@ -69,7 +68,7 @@ public class RecipeController {
 		    // CHECK IF USER CHANGES RECIPE IMAGE
 			// IF ISIMGCHANGED TRUE OR FALSE
 		    
-		    Recipe recipe = new Recipe(0L, name, description, cuisine, course, diet, prepTime, ingredients, instructions, image, dateCreated, ownerId, type); 
+		    Recipe recipe = new Recipe(0L, name, description, cuisine, course, diet, prepTime, ingredients, instructions, image, ownerId, type); 
 	        
 	        if(imageName.equals("")) {
 	        	recipe.setImage(null);
@@ -96,7 +95,6 @@ public class RecipeController {
 	        @RequestParam("ingredients") String ingredients,
 	        @RequestParam("instructions") String instructions,
 	        @RequestParam("image") String image,
-	        @RequestParam("dateCreated") LocalDateTime dateCreated,
 	        @RequestParam("ownerId") Long ownerId,
 	        @RequestParam("type") Boolean type
 			) throws IOException {
@@ -120,7 +118,7 @@ public class RecipeController {
 				return null;
 			}
 			
-			Recipe recipe = new Recipe(0L, name, description, cuisine, course, diet, prepTime, ingredients, instructions, image, dateCreated, ownerId, type);
+			Recipe recipe = new Recipe(0L, name, description, cuisine, course, diet, prepTime, ingredients, instructions, image, ownerId, type);
 	        
 			return recipeService.saveRecipe(recipe);
 		}

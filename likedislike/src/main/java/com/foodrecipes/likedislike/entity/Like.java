@@ -27,9 +27,6 @@ public class Like {
     @Column(name = "date_created", nullable = false, updatable = false)
     private LocalDateTime dateCreated = LocalDateTime.now();
 
-    @Column(nullable = false)
-    private Boolean type;
-
 	public Long getId() {
 		return id;
 	}
@@ -62,21 +59,12 @@ public class Like {
 		this.dateCreated = dateCreated;
 	}
 
-	public Boolean getType() {
-		return type;
-	}
-
-	public void setType(Boolean type) {
-		this.type = type;
-	}
-
-	public Like(Long id, Long recipeId, Long userId, LocalDateTime dateCreated, Boolean type) {
+	public Like(Long id, Long recipeId, Long userId, LocalDateTime dateCreated) {
 		super();
 		this.id = id;
 		this.recipeId = recipeId;
 		this.userId = userId;
 		this.dateCreated = dateCreated;
-		this.type = type;
 	}
 
 	public Like() {
