@@ -9,6 +9,7 @@ import com.foodrecipes.likedislike.entity.Like;
 
 @Repository
 public interface LikeRepository extends JpaRepository<Like, Long> {
-	long countByRecipeIdAndType(Long recipeId, Boolean type);
+	long countByRecipeId(Long recipeId);
 	Optional<Like> findByUserIdAndRecipeId(Long userId, Long recipeId);
+	boolean existsByRecipeIdAndUserId(Long recipeId, Long userId);
 }

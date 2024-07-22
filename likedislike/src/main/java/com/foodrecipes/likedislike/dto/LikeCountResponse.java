@@ -2,14 +2,13 @@ package com.foodrecipes.likedislike.dto;
 
 public class LikeCountResponse {
     private long likes;
-    private long dislikes;
+    
 
     public LikeCountResponse() {
     }
 
-    public LikeCountResponse(long likes, long dislikes) {
+    public LikeCountResponse(long likes) {
         this.likes = likes;
-        this.dislikes = dislikes;
     }
 
     public long getLikes() {
@@ -20,11 +19,5 @@ public class LikeCountResponse {
         this.likes = likes;
     }
 
-    public long getDislikes() {
-        return dislikes;
-    }
-
-    public void setDislikes(long dislikes) {
-        this.dislikes = dislikes;
-    }
+   
 }
