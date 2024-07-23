@@ -49,6 +49,9 @@ public class ApiGatewayConfiguration {
 				
 				.route(p -> p.path("/favorite/**")
 						.uri("lb://favorite"))
+
+				.route(p -> p.path("/search-recipe/**")
+						.uri("lb://search-recipe"))
 				
 				.build();
 					

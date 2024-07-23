@@ -28,7 +28,7 @@ public class SearchController {
         for(int i = 0; i<list.size();i++) {
         	System.out.println(list.get(i).getProfilePicture());
         }
-        return userProfileService.searchUserProfilesByUsername(searchCriteria.getUsername(), searchCriteria.getPage());
+        return list;
     }
 	
 }

@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.foodrecipes.namingserver</groupId>
-	<artifactId>SearchProfile</artifactId>
+	<artifactId>SearchRecipe</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>searchprofile</name>
-	<description>SearchProfile project for Spring Boot</description>
+	<name>SearchRecipe</name>
+	<description>Profile search backend microservice</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -26,7 +26,7 @@
 		<tag/>
 		<url/>
 	</scm>
-	<properties>
+		<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2023.0.2</spring-cloud.version>
 	</properties>
