@@ -11,6 +11,6 @@ import com.foodrecipes.searchrecipe.entity.Recipe;
 
 
 public interface RecipeRepository extends JpaRepository<Recipe, Long>{
-	@Query("SELECT r FROM Recipe r WHERE r.name LIKE CONCAT(:recipeName, '%') AND r.type = 1")
+	@Query("SELECT r FROM Recipe r WHERE r.name LIKE CONCAT(:recipeName, '%') AND r.type = TRUE")
     List<Recipe> findByRecipeStartingWith(@Param("recipeName") String recipeName, PageRequest pageRequest);
 }

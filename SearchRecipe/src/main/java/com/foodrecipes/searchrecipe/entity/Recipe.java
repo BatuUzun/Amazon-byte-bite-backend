@@ -43,7 +43,7 @@ public class Recipe {
     @Column(name = "owner_id", nullable = false)
     private Long ownerId;
 
-    private int type;
+    private boolean type;
 
 	public Long getId() {
 		return id;
@@ -141,17 +141,17 @@ public class Recipe {
 		this.ownerId = ownerId;
 	}
 
-	public int getType() {
+	public boolean getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(boolean type) {
 		this.type = type;
 	}
 
 	public Recipe(Long id, String name, String description, String cuisine, String course, String diet, String prepTime,
 			String ingredients, String instructions, String image, LocalDateTime dateCreated, Long ownerId,
-			int type) {
+			boolean type) {
 		super();
 		this.id = id;
 		this.name = name;
