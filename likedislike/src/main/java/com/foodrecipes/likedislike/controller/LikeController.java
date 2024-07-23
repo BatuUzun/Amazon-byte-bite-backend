@@ -30,6 +30,7 @@ public class LikeController {
 	
 	@GetMapping("/check-like")
     public boolean getLike(@RequestParam Long recipeId, @RequestParam Long userId) {
+		System.out.println("CHECK LIKE");
 		return likeService.existsByRecipeIdAndUserId(recipeId, userId);
     }
 	
