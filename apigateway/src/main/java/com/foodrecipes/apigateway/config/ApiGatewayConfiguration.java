@@ -53,6 +53,12 @@ public class ApiGatewayConfiguration {
 				.route(p -> p.path("/search-recipe/**")
 						.uri("lb://search-recipe"))
 				
+				.route(p -> p.path("/click/**")
+						.uri("lb://click"))
+				
+				.route(p -> p.path("/comment/**")
+						.uri("lb://comment"))
+				
 				.build();
 					
 		

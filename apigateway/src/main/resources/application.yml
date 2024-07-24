@@ -44,4 +44,8 @@ springdoc:
         name: favorite
       - url: /search-recipe/v3/api-docs
         name: search-recipe
+      - url: /click/v3/api-docs
+        name: click
+      - url: /comment/v3/api-docs
+        name: comment
         
