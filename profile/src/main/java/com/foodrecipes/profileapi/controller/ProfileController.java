@@ -110,6 +110,11 @@ public class ProfileController {
         
     }
 	
+	@GetMapping("/get-user-profile/{id}")
+	public UserProfile getUserProfileById(@PathVariable("id") Long id) {
+        return userProfileService.getUserProfileById(id);
+    }
+	
 	@GetMapping("/user/{id}/followers-followings/count")
     public ResponseEntity<FollowCountsDTO> getFollowersCount(@PathVariable Long id) {
 		if(!userProfileService.isUserProfileExist(id)) {
