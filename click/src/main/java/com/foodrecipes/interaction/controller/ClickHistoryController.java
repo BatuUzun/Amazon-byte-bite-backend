@@ -24,8 +24,8 @@ public class ClickHistoryController {
     
     
     @GetMapping("/most-clicked-recipes")
-    public ResponseEntity<List<Long>> getMostClickedRecipes(@RequestParam("pageNumber") int pageNumber) {
-        List<Long> mostClickedRecipeIds = clickHistoryService.getMostClickedRecipes(pageNumber, Constants.PAGE_SIZE);
+    public ResponseEntity<List<Long>> getMostClickedRecipes() {
+        List<Long> mostClickedRecipeIds = clickHistoryService.getTop1000ClickedRecipes();
         return new ResponseEntity<>(mostClickedRecipeIds, HttpStatus.OK);
     }
     

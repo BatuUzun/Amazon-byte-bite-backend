@@ -84,6 +84,25 @@ public class ClickHistoryService {
 	    }
 	    return Collections.emptyList(); // Return an empty list if no data or deserialization fails
 	}
+	
+	public List<Long> getTop1000ClickedRecipes() {
+	    String mostClickedJson = (String) redisTemplate.opsForValue().get(MOST_CLICKED_KEY);
+	    if (mostClickedJson != null) {
+	        try {
+	            // Deserialize JSON string back to List<Long>
+	            List<Long> allMostClickedRecipeIds = objectMapper.readValue(mostClickedJson, new TypeReference<List<Long>>() {});
+
+	            // Get the first 1000 IDs
+	            List<Long> top1000Ids = allMostClickedRecipeIds.size() > 1000 ? allMostClickedRecipeIds.subList(0, 1000) : allMostClickedRecipeIds;
+
+	            return top1000Ids;
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            System.err.println("Error deserializing JSON: " + mostClickedJson);
+	        }
+	    }
+	    return Collections.emptyList(); // Return an empty list if no data or deserialization fails
+	}
 
 
 
