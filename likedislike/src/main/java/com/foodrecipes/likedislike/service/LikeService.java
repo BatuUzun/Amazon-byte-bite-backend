@@ -57,22 +57,12 @@ public class LikeService {
         redisTemplate.opsForValue().set(MOST_LIKED_KEY, allMostLikedJson);
     }
 
-    public List<Long> getMostLikedRecipes(int pageNumber, int pageSize) {
+    public List<Long> getAllRecipeIdsInOrder() {
         String mostLikedJson = (String) redisTemplate.opsForValue().get(MOST_LIKED_KEY);
         if (mostLikedJson != null) {
             try {
                 // Deserialize JSON string back to List<Long>
-                List<Long> allMostLikedRecipeIds = objectMapper.readValue(mostLikedJson, new TypeReference<List<Long>>() {});
-
-                // Calculate start and end indices for pagination
-                int totalSize = allMostLikedRecipeIds.size();
-                int startIndex = pageNumber * pageSize;
-                int endIndex = Math.min(startIndex + pageSize, totalSize);
-
-                // Return the paginated list
-                if (startIndex < totalSize) {
-                    return allMostLikedRecipeIds.subList(startIndex, endIndex);
-                }
+                return objectMapper.readValue(mostLikedJson, new TypeReference<List<Long>>() {});
             } catch (IOException e) {
                 e.printStackTrace();
                 System.err.println("Error deserializing JSON: " + mostLikedJson);
@@ -81,6 +71,22 @@ public class LikeService {
         return Collections.emptyList(); // Return an empty list if no data or deserialization fails
     }
 
+    public List<Long> getFirst1000RecipeIds() {
+        String mostLikedJson = (String) redisTemplate.opsForValue().get(MOST_LIKED_KEY);
+        if (mostLikedJson != null) {
+            try {
+                // Deserialize JSON string back to List<Long>
+                List<Long> allRecipeIds = objectMapper.readValue(mostLikedJson, new TypeReference<List<Long>>() {});
+                // Return the first 1000 IDs or the whole list if it has less than 1000 IDs
+                return allRecipeIds.size() > 1000 ? allRecipeIds.subList(0, 1000) : allRecipeIds;
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.err.println("Error deserializing JSON: " + mostLikedJson);
+            }
+        }
+        return Collections.emptyList(); // Return an empty list if no data or deserialization fails
+    }
+    
     public long countLikes(Long recipeId) {
         return likeRepository.countByRecipeId(recipeId); // true for likes
     }

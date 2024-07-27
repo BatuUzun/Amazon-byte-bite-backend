@@ -1,13 +1,17 @@
 package com.foodrecipes.recipegetter.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foodrecipes.recipegetter.dto.RecipeDTO;
 import com.foodrecipes.recipegetter.dto.RecipeSpecificDTO;
+import com.foodrecipes.recipegetter.entity.RecipeProjection;
 import com.foodrecipes.recipegetter.service.RecipeService;
 
 @RestController
@@ -17,13 +21,10 @@ public class RecipeController {
     private RecipeService recipeService;
 
 	
-	@GetMapping("/get-recipe/{userId}/{page}")
-	public RecipeDTO getRecipe(@PathVariable("userId") Long userId, @PathVariable("page") int page) {
-		
-		
-		
-		return null;
-	}
+	@PostMapping("/get-recipes")
+    public List<RecipeProjection> getRecipes(@RequestParam List<Long> ids) {
+        return recipeService.findRecipesByIds(ids);
+    }
 	
 	
     @GetMapping("/specific-fields/{id}")

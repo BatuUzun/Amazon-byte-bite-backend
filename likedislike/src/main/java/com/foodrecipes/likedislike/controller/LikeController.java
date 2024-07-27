@@ -34,8 +34,8 @@ public class LikeController {
     }
 	
 	@GetMapping("/most-liked-recipes")
-    public ResponseEntity<List<Long>> getMostLikedRecipes(@RequestParam("page") int page) {
-        List<Long> mostLikedRecipeIds = likeService.getMostLikedRecipes(page, Constants.PAGE_SIZE);
+    public ResponseEntity<List<Long>> getMostLikedRecipes() {
+        List<Long> mostLikedRecipeIds = likeService.getFirst1000RecipeIds();
         return new ResponseEntity<>(mostLikedRecipeIds, HttpStatus.OK);
     }
 	
