@@ -7,12 +7,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.foodrecipes.likedislike.constants.Constants;
 import com.foodrecipes.likedislike.entity.Like;
 import com.foodrecipes.likedislike.repository.LikeRepository;
 
@@ -153,4 +155,14 @@ public class LikeService {
             System.err.println("Error serializing most liked recipes.");
         }
     }
+
+	public long countLikesByUserId(Long userId) {
+		return likeRepository.countByUserId(userId);
+	}
+
+	public List<Long> getLikesByOwnerId(Long ownerId, int page) {
+    	PageRequest pageRequest = PageRequest.of(page, Constants.PAGE_SIZE);
+    	return likeRepository.findByOwnerId(ownerId, pageRequest);
+	}
+	
 }

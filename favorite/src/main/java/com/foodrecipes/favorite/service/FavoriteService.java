@@ -1,13 +1,13 @@
 package com.foodrecipes.favorite.service;
 
 import java.time.LocalDateTime;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
+import com.foodrecipes.favorite.constants.Constants;
 import com.foodrecipes.favorite.entity.Favorite;
 import com.foodrecipes.favorite.repository.FavoriteRepository;
-
 import jakarta.transaction.Transactional;
 
 @Service
@@ -35,6 +35,15 @@ public class FavoriteService {
             return true;
         }
         return false;
+    }
+	public List<Long> getFavoritesByOwnerId(Long ownerId, int page) {
+    	PageRequest pageRequest = PageRequest.of(page, Constants.PAGE_SIZE);
+
+		return favoriteRepository.findByOwnerId(ownerId, pageRequest);
+	}
+	
+	public long countFavoritesByUserId(Long userId) {
+        return favoriteRepository.countByUserId(userId);
     }
 	
 	
