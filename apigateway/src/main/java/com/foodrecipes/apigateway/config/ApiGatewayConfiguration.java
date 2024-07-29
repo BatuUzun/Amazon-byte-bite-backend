@@ -59,6 +59,9 @@ public class ApiGatewayConfiguration {
 				.route(p -> p.path("/comment/**")
 						.uri("lb://comment"))
 				
+				.route(p -> p.path("/profile-getter/**")
+						.uri("lb://profile-getter"))
+				
 				.build();
 					
 		

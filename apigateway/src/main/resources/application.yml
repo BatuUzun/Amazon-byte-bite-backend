@@ -48,4 +48,6 @@ springdoc:
         name: click
       - url: /comment/v3/api-docs
         name: comment
+      - url: /profile-getter/v3/api-docs
+        name: profile-getter
         
