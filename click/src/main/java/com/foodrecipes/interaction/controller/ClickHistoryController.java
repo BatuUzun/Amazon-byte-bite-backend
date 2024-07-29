@@ -26,6 +26,7 @@ public class ClickHistoryController {
     @GetMapping("/most-clicked-recipes")
     public ResponseEntity<List<Long>> getMostClickedRecipes() {
         List<Long> mostClickedRecipeIds = clickHistoryService.getTop1000ClickedRecipes();
+        clickHistoryService.printClickCounts();
         return new ResponseEntity<>(mostClickedRecipeIds, HttpStatus.OK);
     }
     
@@ -33,6 +34,14 @@ public class ClickHistoryController {
     @PostMapping("/add-click")
     public void addClick(@RequestParam("userId") Long userId, @RequestParam("recipeId") Long recipeId) {
     	System.out.println("CLICKED");
+    	clickHistoryService.printClickCounts();
         clickHistoryService.addClick(userId, recipeId);
+        
+    }
+    
+    @GetMapping("/most-clicked/last-two-days")
+    public List<Long> getMostClickedRecipesLastTwoDays() {
+    	clickHistoryService.printClickCounts();
+        return clickHistoryService.getMostClickedRecipeIdsFromCache();
     }
 }

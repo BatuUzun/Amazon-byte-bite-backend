@@ -14,6 +14,10 @@ public class StartupService {
 
     @PostConstruct
     public void init() throws JsonProcessingException {
+    	//clickService.clearAllCache();
+    	
         clickService.initializeCache();
+        
+        clickService.initializeCacheLastTwoDays();
     }
 }
