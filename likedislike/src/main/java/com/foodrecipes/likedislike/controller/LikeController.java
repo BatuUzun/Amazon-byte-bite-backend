@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.foodrecipes.likedislike.dto.LikeCountResponse;
 import com.foodrecipes.likedislike.entity.Like;
 import com.foodrecipes.likedislike.entity.RecipeProjection;
+import com.foodrecipes.likedislike.entity.UserProfile;
 import com.foodrecipes.likedislike.proxy.RecipeProxy;
+import com.foodrecipes.likedislike.proxy.UserProfileProxy;
 import com.foodrecipes.likedislike.service.LikeService;
 
 @RestController
@@ -30,6 +34,9 @@ public class LikeController {
 	
 	@Autowired
 	private RecipeProxy recipeProxy;
+	
+	@Autowired
+	private UserProfileProxy userProfileProxy;
 	
 	@GetMapping("/count")
     public LikeCountResponse getLikeCounts(@RequestParam Long recipeId) {
@@ -84,6 +91,19 @@ public class LikeController {
             if (recipe != null) {
                 orderedRecipes.add(recipe);
             }
+        }
+        
+        List<Long> idOfUserProfiles = new ArrayList<>();
+        for(int i = 0;i<orderedRecipes.size();i++) {
+        	
+        	idOfUserProfiles.add(orderedRecipes.get(i).getOwnerId());
+        }
+        
+        List<UserProfile> upList = new ArrayList<>(userProfileProxy.getUserProfiles(idOfUserProfiles));
+        
+        for(int i = 0; i < orderedRecipes.size(); i++) {        	
+        	orderedRecipes.get(i).setUsername(upList.get(i).getUsername());
+        	orderedRecipes.get(i).setOwnerImage(upList.get(i).getProfilePicture());
         }
 
         return orderedRecipes;

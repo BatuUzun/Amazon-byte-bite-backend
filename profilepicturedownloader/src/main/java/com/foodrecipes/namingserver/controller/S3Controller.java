@@ -35,7 +35,7 @@ public class S3Controller {
 	    byte[] imageBytes = IOUtils.toByteArray(imageObject.getObjectContent());
 	    
 	    String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-	    
+	    System.out.println(imageObject.getBucketName());
 	    return base64Image;
 	}
 	/*public ResponseEntity<byte[]> getImage(@PathVariable("fileName") String imageName) throws IOException {

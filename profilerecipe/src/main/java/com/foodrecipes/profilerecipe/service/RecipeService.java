@@ -7,8 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.foodrecipes.profilerecipe.constants.Constants;
-import com.foodrecipes.profilerecipe.entity.Recipe;
-import com.foodrecipes.profilerecipe.entity.RecipeProjection;
+import com.foodrecipes.profilerecipe.entity.RecipeProjectionWithoutProfile;
 import com.foodrecipes.profilerecipe.repository.RecipeRepository;
 @Service
 public class RecipeService {
@@ -20,7 +19,7 @@ public class RecipeService {
         return recipeRepository.countRecipesByOwnerId(ownerId);
     }
 
-    public List<RecipeProjection> getRecipesByOwnerId(Long ownerId, int page) {
+    public List<RecipeProjectionWithoutProfile> getRecipesByOwnerId(Long ownerId, int page) {
     	PageRequest pageRequest = PageRequest.of(page, Constants.RECIPE_PAGE_SIZE);
         return recipeRepository.findByOwnerId(ownerId, pageRequest);
     }

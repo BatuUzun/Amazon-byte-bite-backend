@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.foodrecipes.recipegetter.dto.RecipeSpecificDTO;
 import com.foodrecipes.recipegetter.entity.Recipe;
-import com.foodrecipes.recipegetter.entity.RecipeProjection;
+import com.foodrecipes.recipegetter.entity.RecipeProjectionWithoutProfile;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
@@ -20,5 +20,5 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 	
 	@Query("SELECT r.id as id, r.name as name, r.description as description, r.dateCreated as dateCreated, r.image as image, r.ownerId as ownerId " +
 	           "FROM Recipe r WHERE r.id IN :ids")
-	    List<RecipeProjection> findRecipesByIds(@Param("ids") List<Long> ids);
+	    List<RecipeProjectionWithoutProfile> findRecipesByIds(@Param("ids") List<Long> ids);
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.foodrecipes.recipegetter.dto.RecipeSpecificDTO;
-import com.foodrecipes.recipegetter.entity.RecipeProjection;
+import com.foodrecipes.recipegetter.entity.RecipeProjectionWithoutProfile;
 import com.foodrecipes.recipegetter.repository.RecipeRepository;
 
 @Service
@@ -19,7 +19,7 @@ public class RecipeService {
         return recipeRepository.findSpecificFieldsByIdWhereTypeIsTrue(id);
     }
     
-    public List<RecipeProjection> findRecipesByIds(List<Long> ids){
+    public List<RecipeProjectionWithoutProfile> findRecipesByIds(List<Long> ids){
     	return recipeRepository.findRecipesByIds(ids);
     }
 }

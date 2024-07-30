@@ -1,5 +1,7 @@
 package com.foodrecipes.profileapi.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +22,6 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long>{
 	
 	@Query("SELECT u.profilePicture FROM UserProfile u WHERE u.id = :id")
     String findUserProfilePictureById(@Param("id") Long id);
+	
+	List<UserProfile> findByIdIn(List<Long> ids);
 }
