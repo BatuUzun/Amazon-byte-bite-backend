@@ -42,7 +42,7 @@ public class UserProfileService {
     	return userProfileRepository.findUserProfilePictureById(id);
     }
     
-    public List<UserProfile> getUserProfilesInOrder(List<Long> ids) {
+    /*public List<UserProfile> getUserProfilesInOrder(List<Long> ids) {
         // Fetch all profiles by IDs
         List<UserProfile> profiles = userProfileRepository.findByIdIn(ids);
         
@@ -60,5 +60,5 @@ public class UserProfileService {
         }
 
         return orderedProfiles;
-    }
+    */
 }

@@ -131,10 +131,10 @@ public class ProfileController {
 	    return ResponseEntity.ok(followCountsDTO);
     }
 	
-	@GetMapping("/get-user-profiles")
+	/*@GetMapping("/get-user-profiles")
     public ResponseEntity<List<UserProfile>> getUserProfiles(@RequestParam List<Long> ids) {
         List<UserProfile> profiles = userProfileService.getUserProfilesInOrder(ids);
         return ResponseEntity.ok(profiles);
-    }
+    }*/
 
 }

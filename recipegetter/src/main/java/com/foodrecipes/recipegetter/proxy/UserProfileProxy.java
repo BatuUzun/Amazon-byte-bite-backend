@@ -9,10 +9,10 @@ import com.foodrecipes.recipegetter.entity.UserProfile;
 
 
 
-@FeignClient(name = "profile-api")
+@FeignClient(name = "profile-getter")
 public interface UserProfileProxy {
 	
-	@GetMapping("/profile-api/get-user-profiles")
+	@GetMapping("/profile-getter/get-user-profiles")
     List<UserProfile> getUserProfiles(@RequestParam List<Long> ids);
     
 }
