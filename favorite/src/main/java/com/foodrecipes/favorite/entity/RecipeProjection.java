@@ -9,11 +9,37 @@ public class RecipeProjection {
     private LocalDateTime dateCreated;
     private String image;
     private Long ownerId;
+    private String username;
+    private String ownerImage;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public RecipeProjection(Long id, String name, String description, LocalDateTime dateCreated, String image,
+			Long ownerId, String username, String ownerImage) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.dateCreated = dateCreated;
+		this.image = image;
+		this.ownerId = ownerId;
+		this.username = username;
+		this.ownerImage = ownerImage;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getOwnerImage() {
+		return ownerImage;
+	}
+	public void setOwnerImage(String ownerImage) {
+		this.ownerImage = ownerImage;
 	}
 	public String getName() {
 		return name;
