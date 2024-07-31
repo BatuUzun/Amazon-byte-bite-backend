@@ -1,5 +1,7 @@
 package com.foodrecipes.profileapi.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,4 +14,14 @@ public interface UserFollowsRepository extends JpaRepository<UserFollows, UserFo
 	
 	@Query("SELECT COUNT(uf) FROM UserFollows uf WHERE uf.follower.id = :userId")
     long countFollowingsByUserId(@Param("userId") Long userId);
+	
+	
+	
+	
+	
+	@Query("SELECT uf FROM UserFollows uf WHERE uf.followed.id = :userId")
+    List<UserFollows> findFollowersByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT uf FROM UserFollows uf WHERE uf.follower.id = :userId")
+    List<UserFollows> findFollowingsByUserId(@Param("userId") Long userId);
 }
