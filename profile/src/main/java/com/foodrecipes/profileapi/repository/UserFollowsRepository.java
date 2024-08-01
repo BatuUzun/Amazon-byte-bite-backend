@@ -24,4 +24,9 @@ public interface UserFollowsRepository extends JpaRepository<UserFollows, UserFo
 
     @Query("SELECT uf FROM UserFollows uf WHERE uf.follower.id = :userId")
     List<UserFollows> findFollowingsByUserId(@Param("userId") Long userId);
+    
+    // Check if a specific user is following another user
+    @Query("SELECT COUNT(uf) > 0 FROM UserFollows uf WHERE uf.follower.id = :followerId AND uf.followed.id = :followedId")
+    boolean isUserFollowing(@Param("followerId") Long followerId, @Param("followedId") Long followedId);
+
 }

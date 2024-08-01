@@ -42,4 +42,8 @@ public class UserFollowsService {
     public long getFollowingsCount(Long userId) {
         return userFollowsRepository.countFollowingsByUserId(userId);
     }
+    
+    public boolean isUserFollowing(Long followerId, Long followedId) {
+        return userFollowsRepository.isUserFollowing(followerId, followedId);
+    }
 }

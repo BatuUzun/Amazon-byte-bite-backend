@@ -1,7 +1,5 @@
 package com.foodrecipes.profileapi.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.foodrecipes.profileapi.constants.Constants;
 import com.foodrecipes.profileapi.dto.FollowCountsDTO;
 import com.foodrecipes.profileapi.dto.FollowRequest;
@@ -131,10 +128,11 @@ public class ProfileController {
 	    return ResponseEntity.ok(followCountsDTO);
     }
 	
-	/*@GetMapping("/get-user-profiles")
-    public ResponseEntity<List<UserProfile>> getUserProfiles(@RequestParam List<Long> ids) {
-        List<UserProfile> profiles = userProfileService.getUserProfilesInOrder(ids);
-        return ResponseEntity.ok(profiles);
-    }*/
+	@GetMapping("/check-follow")
+    public boolean checkIfUserFollows(
+            @RequestParam("followerId") Long followerId,
+            @RequestParam("followedId") Long followedId) {
+        return userFollowsService.isUserFollowing(followerId, followedId);
+    }
 
 }
