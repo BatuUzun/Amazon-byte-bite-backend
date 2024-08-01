@@ -1,6 +1,7 @@
 package com.foodrecipes.profileapi.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -28,8 +29,31 @@ public class UserFollows {
     @ManyToOne
     @JoinColumn(name = "followed_id", foreignKey = @ForeignKey(name = "fk_followed_id"))
     private UserProfile followed;
+    
+    @Column(name = "date_created", nullable = false)
+    private LocalDateTime dateCreated = LocalDateTime.now();
 
-    // Getters and setters
+    public UserFollows(UserFollowsId id, UserProfile follower, UserProfile followed, LocalDateTime dateCreated) {
+		super();
+		this.id = id;
+		this.follower = follower;
+		this.followed = followed;
+		this.dateCreated = dateCreated;
+	}
+
+	public UserFollows() {
+		super();
+	}
+
+	public LocalDateTime getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(LocalDateTime dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	// Getters and setters
     public UserFollowsId getId() {
         return id;
     }

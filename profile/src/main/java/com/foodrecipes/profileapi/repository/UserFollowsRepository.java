@@ -2,6 +2,7 @@ package com.foodrecipes.profileapi.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,11 +20,11 @@ public interface UserFollowsRepository extends JpaRepository<UserFollows, UserFo
 	
 	
 	
-	@Query("SELECT uf FROM UserFollows uf WHERE uf.followed.id = :userId")
-    List<UserFollows> findFollowersByUserId(@Param("userId") Long userId);
+	@Query("SELECT uf FROM UserFollows uf WHERE uf.followed.id = :userId ORDER BY uf.dateCreated DESC")
+    List<UserFollows> findFollowersByUserId(@Param("userId") Long userId, PageRequest pageRequest);
 
-    @Query("SELECT uf FROM UserFollows uf WHERE uf.follower.id = :userId")
-    List<UserFollows> findFollowingsByUserId(@Param("userId") Long userId);
+    @Query("SELECT uf FROM UserFollows uf WHERE uf.follower.id = :userId ORDER BY uf.dateCreated DESC")
+    List<UserFollows> findFollowingsByUserId(@Param("userId") Long userId, PageRequest pageRequest);
     
     // Check if a specific user is following another user
     @Query("SELECT COUNT(uf) > 0 FROM UserFollows uf WHERE uf.follower.id = :followerId AND uf.followed.id = :followedId")

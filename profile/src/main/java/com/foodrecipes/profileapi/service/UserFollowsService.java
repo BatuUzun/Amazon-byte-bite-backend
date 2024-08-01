@@ -1,7 +1,12 @@
 package com.foodrecipes.profileapi.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import com.foodrecipes.profileapi.constants.Constants;
 import com.foodrecipes.profileapi.entity.UserFollows;
 import com.foodrecipes.profileapi.entity.UserProfile;
 import com.foodrecipes.profileapi.repository.UserFollowsRepository;
@@ -45,5 +50,15 @@ public class UserFollowsService {
     
     public boolean isUserFollowing(Long followerId, Long followedId) {
         return userFollowsRepository.isUserFollowing(followerId, followedId);
+    }
+    
+    public List<UserFollows> findFollowersByUserId(Long id, int page) {
+    	PageRequest pageRequest = PageRequest.of(page, Constants.PAGE_SIZE);
+    	return userFollowsRepository.findFollowersByUserId(id, pageRequest);
+    }
+    
+    public List<UserFollows> findFollowingsByUserId(Long id, int page) {
+    	PageRequest pageRequest = PageRequest.of(page, Constants.PAGE_SIZE);
+    	return userFollowsRepository.findFollowingsByUserId(id, pageRequest);
     }
 }
