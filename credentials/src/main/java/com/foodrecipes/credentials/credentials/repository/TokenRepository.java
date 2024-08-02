@@ -8,4 +8,6 @@ public interface TokenRepository extends JpaRepository<Token, Long> {
 	
 	Token findByToken(String token);
 	
+	void deleteByUserIdAndToken(Long userId, String token);
+	
 }
