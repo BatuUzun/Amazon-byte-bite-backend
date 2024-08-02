@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.foodrecipes.comment.entity.Comment;
 import com.foodrecipes.comment.entity.CommentProjection;
 import com.foodrecipes.comment.entity.CommentProjectionWithProfile;
 import com.foodrecipes.comment.entity.UserProfile;
@@ -52,6 +57,13 @@ public class CommentController {
         	commentWithProfile.get(i).setProfilePicture(upList.get(i).getProfilePicture());
         }
         return commentWithProfile;
+    }
+	
+	@PostMapping("/save-comment")
+    public Comment addComment(@RequestBody Comment comment) {
+		System.out.println("Hi");
+        Comment newComment = commentService.addComment(comment);
+        return newComment;
     }
 	
 }

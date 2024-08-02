@@ -1,5 +1,6 @@
 package com.foodrecipes.comment.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.foodrecipes.comment.constants.Constants;
+import com.foodrecipes.comment.entity.Comment;
 import com.foodrecipes.comment.entity.CommentProjection;
 import com.foodrecipes.comment.repository.CommentRepository;
 
@@ -30,5 +32,10 @@ public class CommentService {
     	
     	//PageRequest pageRequest = PageRequest.of(page, Constants.PAGE_SIZE);
         return commentRepository.findByRecipeId(recipeId, pageRequest);
+    }
+    
+    public Comment addComment(Comment comment) {
+        comment.setDateCreated(LocalDateTime.now());
+        return commentRepository.save(comment);
     }
 }
