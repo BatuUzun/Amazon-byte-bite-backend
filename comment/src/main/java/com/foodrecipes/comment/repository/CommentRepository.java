@@ -12,6 +12,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Query("SELECT COUNT(c) FROM Comment c WHERE c.recipeId = :recipeId")
     long countByRecipeId(@Param("recipeId") Long recipeId);
     
-    @Query("SELECT c.id as id, c.ownerId as ownerId, c.comment as comment, c.dateCreated as dateCreated FROM Comment c WHERE c.recipeId = :recipeId")
+    @Query("SELECT c.id as id, c.ownerId as ownerId, c.comment as comment, c.dateCreated as dateCreated FROM Comment c WHERE c.recipeId = :recipeId ORDER BY c.dateCreated DESC")
     List<CommentProjection> findByRecipeId(Long recipeId, PageRequest pageRequest);
 }
