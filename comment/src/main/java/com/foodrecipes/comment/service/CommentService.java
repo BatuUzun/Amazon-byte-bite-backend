@@ -38,4 +38,12 @@ public class CommentService {
         comment.setDateCreated(LocalDateTime.now());
         return commentRepository.save(comment);
     }
+    
+    public void deleteCommentById(Long id) {
+        if (commentRepository.existsById(id)) {
+            commentRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Comment not found with id: " + id);
+        }
+    }
 }
