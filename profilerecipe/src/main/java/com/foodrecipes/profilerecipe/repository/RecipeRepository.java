@@ -13,10 +13,10 @@ import com.foodrecipes.profilerecipe.entity.RecipeProjectionWithoutProfile;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
-	@Query("SELECT COUNT(r) FROM Recipe r WHERE r.ownerId = :ownerId AND r.type = true")
+	@Query("SELECT COUNT(r) FROM Recipe r WHERE r.ownerId = :ownerId")
     long countRecipesByOwnerId(@Param("ownerId") Long ownerId);
 	
 	@Query("SELECT r.id AS id, r.name AS name, r.ownerId AS ownerId,r.description AS description, r.dateCreated AS dateCreated, r.image AS image " +
-	           "FROM Recipe r WHERE r.ownerId = :ownerId AND r.type = true")
+	           "FROM Recipe r WHERE r.ownerId = :ownerId")
     List<RecipeProjectionWithoutProfile> findByOwnerId(Long ownerId, PageRequest pageRequest);
 }

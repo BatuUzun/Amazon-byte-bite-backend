@@ -44,8 +44,7 @@ public class Recipe {
     @Column(nullable = false)
     private Long ownerId;
 
-    @Column(nullable = false)
-    private Boolean type;
+   
 
 	public Long getId() {
 		return id;
@@ -143,17 +142,10 @@ public class Recipe {
 		this.ownerId = ownerId;
 	}
 
-	public Boolean getType() {
-		return type;
-	}
-
-	public void setType(Boolean type) {
-		this.type = type;
-	}
+	
 
 	public Recipe(Long id, String name, String description, String cuisine, String course, String diet, String prepTime,
-			String ingredients, String instructions, String image, LocalDateTime dateCreated, Long ownerId,
-			Boolean type) {
+			String ingredients, String instructions, String image, LocalDateTime dateCreated, Long ownerId) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -167,7 +159,6 @@ public class Recipe {
 		this.image = image;
 		this.dateCreated = dateCreated;
 		this.ownerId = ownerId;
-		this.type = type;
 	}
 
 	public Recipe() {

@@ -15,8 +15,8 @@ public class RecipeService {
     @Autowired
     private RecipeRepository recipeRepository;
 
-    public RecipeSpecificDTO getSpecificFieldsByIdWhereTypeIsTrue(Long id) {
-        return recipeRepository.findSpecificFieldsByIdWhereTypeIsTrue(id);
+    public RecipeSpecificDTO getSpecificFieldsById(Long id) {
+        return recipeRepository.findSpecificFieldsById(id);
     }
     
     public List<RecipeProjectionWithoutProfile> findRecipesByIds(List<Long> ids){

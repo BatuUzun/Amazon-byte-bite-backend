@@ -63,6 +63,6 @@ public class RecipeController {
 	
     @GetMapping("/specific-fields/{id}")
     public RecipeSpecificDTO getSpecificFieldsByIdWhereTypeIsTrue(@PathVariable Long id) {
-        return recipeService.getSpecificFieldsByIdWhereTypeIsTrue(id);
+        return recipeService.getSpecificFieldsById(id);
     }
 }
