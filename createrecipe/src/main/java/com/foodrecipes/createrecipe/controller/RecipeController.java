@@ -64,8 +64,8 @@ public class RecipeController {
 				return null;
 			}
 			
-			Recipe recipe = new Recipe(0L, name, description, cuisine, course, diet, prepTime, ingredients, instructions, image, ownerId);
-	        
+			Recipe recipe = new Recipe(0L, name, description, cuisine, course, diet, prepTime, ingredients, instructions, imageName, ownerId);
+	        System.out.println(recipe.getImage());
 			return recipeService.saveRecipe(recipe);
 		}
 
