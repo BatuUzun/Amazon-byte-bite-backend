@@ -145,6 +145,7 @@ public class ProfileController {
 	
 	@GetMapping("/users/{userId}/{page}/followings")
     public List<UserFollows> getFollowingsByUserId(@PathVariable("userId") Long userId, @PathVariable("page") int page) {
+		System.out.println("HERE");
         return userFollowsService.findFollowingsByUserId(userId, page);
     }
 
