@@ -20,5 +20,10 @@ public class MailRestController {
 		return emailService.generateVerificationCode(email);
 	}
 	
+	@GetMapping("/send-change-password-code/")
+	private int changePasswordCode(@RequestParam String email) {
+		return emailService.generateChangePasswordCode(email);
+	}
+	
 	
 }
