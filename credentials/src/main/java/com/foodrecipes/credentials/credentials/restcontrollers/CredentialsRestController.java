@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.foodrecipes.credentials.credentials.constants.Constants;
 import com.foodrecipes.credentials.credentials.dto.AuthenticationDTO;
+import com.foodrecipes.credentials.credentials.dto.ChangePasswordRequest;
 import com.foodrecipes.credentials.credentials.dto.UserProfileDTO;
 import com.foodrecipes.credentials.credentials.entity.Token;
 import com.foodrecipes.credentials.credentials.entity.User;
@@ -164,6 +166,35 @@ public class CredentialsRestController {
     @DeleteMapping("/delete-token")
     public void deleteToken(@RequestParam Long userId, @RequestParam String token) {
         tokenService.deleteToken(userId, token);
+    }
+    
+    @GetMapping("/exists-by-email/{email}")
+    public boolean userExistsByEmail(@PathVariable String email) {
+        return userService.userExists(email);
+    }
+    
+    @PostMapping("/change-password")
+    public boolean changePassword(@RequestBody ChangePasswordRequest request) {
+        User user = userService.findUserByEmail(request.getEmail());
+        
+        if(user == null) {
+        	return false;
+        }
+        
+        if(!request.getNewPassword().startsWith(PasswordUtils.BCRYPT_PATTERN)) {
+        	user.setPassword(userService.hashPassword(request.getNewPassword()).substring(PasswordUtils.BCRYPT_PATTERN_SIZE));
+        }
+        else {
+            user.setPassword(request.getNewPassword().substring(PasswordUtils.BCRYPT_PATTERN_SIZE));
+        }
+        
+        User updatedUser = userService.createUser(user);
+        
+        if(updatedUser == null) {
+        	return false;
+        }
+        
+        return true;
     }
     
 }
