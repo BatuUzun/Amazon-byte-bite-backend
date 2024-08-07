@@ -42,7 +42,7 @@ public class ProfileController {
     private UserProfileService userProfileService;
 	
 	@PostMapping("/change-profile-picture")
-	public ResultResponse changeProfilePicture(@RequestParam("file") MultipartFile file, @RequestParam("userId") Long userProfileId) {
+	public void changeProfilePicture(@RequestParam("file") MultipartFile file, @RequestParam("userId") Long userProfileId) {
 		ResultResponse response = null;
 		UserProfile userProfile = userProfileService.getUserProfileById(userProfileId);
 		if(userProfile != null) {
@@ -63,7 +63,7 @@ public class ProfileController {
 		    System.out.println("User ID: " + userProfileId);
 	    
 		}
-	    return response;
+	    
 	}
 	
 	@PostMapping("/add-user-follows")
