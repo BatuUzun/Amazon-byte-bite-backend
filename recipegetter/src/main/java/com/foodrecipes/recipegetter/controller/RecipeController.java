@@ -2,7 +2,6 @@ package com.foodrecipes.recipegetter.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,14 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.foodrecipes.recipegetter.dto.RecipeSpecificDTO;
 import com.foodrecipes.recipegetter.entity.RecipeProjection;
 import com.foodrecipes.recipegetter.entity.RecipeProjectionWithoutProfile;
 import com.foodrecipes.recipegetter.entity.UserProfile;
 import com.foodrecipes.recipegetter.proxy.UserProfileProxy;
 import com.foodrecipes.recipegetter.service.RecipeService;
-import com.foodrecipes.recipegetter.service.StartupService;
 
 @RestController
 @RequestMapping("/recipe-getter")

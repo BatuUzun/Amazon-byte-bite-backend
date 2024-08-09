@@ -1,5 +1,6 @@
 package com.foodrecipes.recipegetter.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -47,12 +48,37 @@ private static final String REDIS_KEY = "recipe_ids";
         redisTemplate.opsForList().rightPushAll(REDIS_KEY, recipeIds);
     }
     
-    public List<Long> getCachedRecipeIds() {
+    /*public List<Long> getCachedRecipeIds() {
         List<Long> recipeIds = redisTemplate.opsForList().range(REDIS_KEY, 0, -1);
         if (recipeIds != null) {
             Collections.shuffle(recipeIds); // Shuffle the list to return in random order
         }
         return recipeIds;
+    }*/
+    
+    public List<Long> getCachedRecipeIds() {
+        List<Long> recipeIds = redisTemplate.opsForList().range(REDIS_KEY, 0, -1);
+        
+        if (recipeIds != null && !recipeIds.isEmpty()) {
+            // Find the minimum value
+            Long minValue = Collections.min(recipeIds);
+            
+            // Create a new list excluding the minimum value
+            List<Long> remainingIds = new ArrayList<>(recipeIds);
+            remainingIds.remove(minValue);
+            
+            // Shuffle the remaining list
+            Collections.shuffle(remainingIds);
+            
+            // Add the minimum value to the beginning of the list
+            List<Long> result = new ArrayList<>();
+            result.add(minValue);
+            result.addAll(remainingIds);
+            
+            return result;
+        }
+        
+        return recipeIds; // Return as-is if it's null or empty
     }
     
     public void addNewRecipeToCache(Long newRecipeId) {

@@ -19,4 +19,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 	@Query("SELECT r.id AS id, r.name AS name, r.ownerId AS ownerId,r.description AS description, r.dateCreated AS dateCreated, r.image AS image " +
 	           "FROM Recipe r WHERE r.ownerId = :ownerId ORDER BY r.dateCreated DESC")
     List<RecipeProjectionWithoutProfile> findByOwnerId(Long ownerId, PageRequest pageRequest);
+	
+	@Query("SELECT r.id FROM Recipe r WHERE r.ownerId IN :userIds")
+    List<Long> findRecipeIdsByOwnerIds(List<Long> userIds);
 }

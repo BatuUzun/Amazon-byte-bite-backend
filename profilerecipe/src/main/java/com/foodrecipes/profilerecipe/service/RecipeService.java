@@ -22,4 +22,8 @@ public class RecipeService {
         return recipeRepository.findByOwnerId(ownerId, pageRequest);
     }
     
+    public List<Long> getRecipeIdsByUserIds(List<Long> userIds) {
+        return recipeRepository.findRecipeIdsByOwnerIds(userIds);
+    }
+    
 }
