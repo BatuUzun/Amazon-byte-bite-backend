@@ -21,4 +21,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 	@Query("SELECT r.id as id, r.name as name, r.description as description, r.dateCreated as dateCreated, r.image as image, r.ownerId as ownerId " +
 	           "FROM Recipe r WHERE r.id IN :ids")
 	    List<RecipeProjectionWithoutProfile> findRecipesByIds(@Param("ids") List<Long> ids);
+	
+	@Query(value = "SELECT id FROM recipe ORDER BY date_created DESC LIMIT ?1", nativeQuery = true)
+    List<Long> findLastTenPercentIds(int limit);
 }

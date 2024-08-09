@@ -17,6 +17,7 @@ import com.foodrecipes.recipegetter.entity.RecipeProjectionWithoutProfile;
 import com.foodrecipes.recipegetter.entity.UserProfile;
 import com.foodrecipes.recipegetter.proxy.UserProfileProxy;
 import com.foodrecipes.recipegetter.service.RecipeService;
+import com.foodrecipes.recipegetter.service.StartupService;
 
 @RestController
 @RequestMapping("/recipe-getter")
@@ -26,6 +27,9 @@ public class RecipeController {
 
 	@Autowired
 	private UserProfileProxy userProfileProxy;
+	
+	/*@Autowired
+	private StartupService startupService;*/
 	
 	@PostMapping("/get-recipes")
     public List<RecipeProjection> getRecipes(@RequestParam List<Long> ids) {
@@ -64,5 +68,15 @@ public class RecipeController {
     @GetMapping("/specific-fields/{id}")
     public RecipeSpecificDTO getSpecificFieldsByIdWhereTypeIsTrue(@PathVariable Long id) {
         return recipeService.getSpecificFieldsById(id);
+    }
+    
+    @GetMapping("/get-last-ten-percent-of-recipes")
+    public List<Long> getCachedRecipes() {
+        return recipeService.getCachedRecipeIds();
+    }
+    
+    @PostMapping("/add-to-cache")
+    public void addNewRecipeToCache(@RequestParam Long newRecipeId) {
+        recipeService.addNewRecipeToCache(newRecipeId);
     }
 }

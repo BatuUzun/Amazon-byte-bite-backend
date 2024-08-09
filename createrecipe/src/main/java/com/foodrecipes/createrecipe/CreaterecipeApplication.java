@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@EnableFeignClients(basePackages = "com.foodrecipes.createrecipe")
+@EnableFeignClients
 public class CreaterecipeApplication {
 
 	public static void main(String[] args) {

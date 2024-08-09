@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.foodrecipes.createrecipe.entity.Recipe;
 import com.foodrecipes.createrecipe.proxy.Amazons3Proxy;
 import com.foodrecipes.createrecipe.proxy.ProfileProxy;
+import com.foodrecipes.createrecipe.proxy.RecipeGetterProxy;
 import com.foodrecipes.createrecipe.response.ResultResponse;
 import com.foodrecipes.createrecipe.service.RecipeService;
 
@@ -27,6 +28,9 @@ public class RecipeController {
 
 	@Autowired
 	private ProfileProxy profileProxy;
+	
+	@Autowired
+	private RecipeGetterProxy recipeGetterProxy;
 
 	
 	
@@ -66,7 +70,12 @@ public class RecipeController {
 			
 			Recipe recipe = new Recipe(0L, name, description, cuisine, course, diet, prepTime, ingredients, instructions, imageName, ownerId);
 	        System.out.println(recipe.getImage());
-			return recipeService.saveRecipe(recipe);
+	        
+	        recipe = recipeService.saveRecipe(recipe);
+	        
+	        recipeGetterProxy.addNewRecipeToCache(recipe.getId());
+
+	        return recipe;
 		}
 
 		return null;
