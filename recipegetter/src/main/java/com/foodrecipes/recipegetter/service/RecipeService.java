@@ -71,26 +71,6 @@ private static final String REDIS_KEY = "recipe_ids";
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     public RecipeSpecificDTO getSpecificFieldsById(Long id) {
         return recipeRepository.findSpecificFieldsById(id);
