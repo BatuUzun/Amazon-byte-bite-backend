@@ -50,4 +50,6 @@ springdoc:
         name: comment
       - url: /profile-getter/v3/api-docs
         name: profile-getter
+      - url: /feed-following-getter/v3/api-docs
+        name: feed-following-getter
         

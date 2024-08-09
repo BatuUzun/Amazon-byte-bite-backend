@@ -62,6 +62,9 @@ public class ApiGatewayConfiguration {
 				.route(p -> p.path("/profile-getter/**")
 						.uri("lb://profile-getter"))
 				
+				.route(p -> p.path("/feed-following-getter/**")
+						.uri("lb://feed-following-getter"))
+				
 				.build();
 					
 		
