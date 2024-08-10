@@ -55,7 +55,7 @@ public class RecipeService {
         if (recipeIds != null) {
             Collections.shuffle(recipeIds); // Shuffle the list to return in random order
         }
-        return recipeIds;
+        return recipeIds; 
     }*/
     
     public List<Long> getCachedRecipeIds() {
