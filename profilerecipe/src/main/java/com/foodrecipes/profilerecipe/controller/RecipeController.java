@@ -65,7 +65,7 @@ public class RecipeController {
     }
     
     
-    @GetMapping("/{followerId}/followed")
+    @GetMapping("/{followerId}/followed-recipes")
     public List<Long> getFollowedUserIds(@PathVariable Long followerId) {
         List<Long> list = new ArrayList<Long>(recipeService.getRecipeIdsByUserIds(feedFollowingGetterProxy.getFollowedUserIds(followerId)));
         Collections.shuffle(list);

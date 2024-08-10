@@ -22,7 +22,7 @@ public class RecipeService {
     @Autowired
     private RecipeRepository recipeRepository;
     
-private static final String REDIS_KEY = "recipe_ids";
+    private static final String REDIS_KEY = "recipe_ids";
     
     @Autowired
     private RedisTemplate<String, Long> redisTemplate;
@@ -43,6 +43,8 @@ private static final String REDIS_KEY = "recipe_ids";
 
         // Fetch the last 10% of recipe IDs
         List<Long> recipeIds = recipeRepository.findLastTenPercentIds(limit);
+        
+        redisTemplate.delete(REDIS_KEY);
 
         // Store the recipe IDs in Redis
         redisTemplate.opsForList().rightPushAll(REDIS_KEY, recipeIds);
