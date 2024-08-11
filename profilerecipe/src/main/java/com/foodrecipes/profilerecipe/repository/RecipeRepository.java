@@ -1,5 +1,6 @@
 package com.foodrecipes.profilerecipe.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +21,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 	           "FROM Recipe r WHERE r.ownerId = :ownerId ORDER BY r.dateCreated DESC")
     List<RecipeProjectionWithoutProfile> findByOwnerId(Long ownerId, PageRequest pageRequest);
 	
-	@Query("SELECT r.id FROM Recipe r WHERE r.ownerId IN :userIds")
-    List<Long> findRecipeIdsByOwnerIds(List<Long> userIds);
+	@Query("SELECT r.id FROM Recipe r WHERE r.ownerId IN :userIds AND r.dateCreated >= :dateThreshold")
+    List<Long> findRecipeIdsByOwnerIds(List<Long> userIds, LocalDateTime dateThreshold);
 }

@@ -40,6 +40,7 @@ public class RecipeService {
 
         // Calculate the number of recipes to fetch (10% of total)
         int limit = (int) Math.ceil(totalRecipes * 0.1);
+        
 
         // Fetch the last 10% of recipe IDs
         List<Long> recipeIds = recipeRepository.findLastTenPercentIds(limit);

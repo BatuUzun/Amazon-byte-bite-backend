@@ -1,9 +1,13 @@
 package com.foodrecipes.profilerecipe.service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
 import com.foodrecipes.profilerecipe.constants.Constants;
 import com.foodrecipes.profilerecipe.entity.RecipeProjectionWithoutProfile;
 import com.foodrecipes.profilerecipe.repository.RecipeRepository;
@@ -23,7 +27,8 @@ public class RecipeService {
     }
     
     public List<Long> getRecipeIdsByUserIds(List<Long> userIds) {
-        return recipeRepository.findRecipeIdsByOwnerIds(userIds);
+    	LocalDateTime fiveDaysAgo = LocalDateTime.now().minus(5, ChronoUnit.DAYS);
+        return recipeRepository.findRecipeIdsByOwnerIds(userIds, fiveDaysAgo);
     }
     
 }
