@@ -34,8 +34,8 @@ public class FavoriteController {
     }
 	
 	@DeleteMapping("/delete/{userId}/{recipeId}")
-    public void deleteFavorite(@PathVariable Long userId, @PathVariable Long recipeId) {
-        favoriteService.deleteFavorite(userId, recipeId);
+    public boolean deleteFavorite(@PathVariable Long userId, @PathVariable Long recipeId) {
+        return favoriteService.deleteFavorite(userId, recipeId);
     }
 	
 	@PostMapping("/add")

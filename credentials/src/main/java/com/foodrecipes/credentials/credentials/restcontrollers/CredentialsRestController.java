@@ -48,8 +48,8 @@ public class CredentialsRestController {
     public ResponseEntity<String> createUser(@RequestBody UserProfileDTO userProfileDTO) {
     	
     	if(!userProfileDTO.isNullOrEmpty()) {
-    		
-    		User user = new User();
+    		if(userProfileDTO.getPassword().length() >= Constants.MINIMUM_PASSWORD_SIZE) {
+    			User user = new User();
             user.setEmail(userProfileDTO.getEmail());
             
             UserProfile userProfile = new UserProfile();
@@ -78,6 +78,12 @@ public class CredentialsRestController {
             userProfileService.createUserProfile(userProfile);
             
             return ResponseEntity.status(HttpStatus.CREATED).body("User is successfully created");
+    		}
+    		else {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Password should contain minimum "+ Constants.MINIMUM_PASSWORD_SIZE +" characters");
+    		}
+    		
+    		
     	}
     	
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something is wrong");
@@ -175,6 +181,9 @@ public class CredentialsRestController {
     
     @PostMapping("/change-password")
     public boolean changePassword(@RequestBody ChangePasswordRequest request) {
+    	if(request.getNewPassword().length() < Constants.MINIMUM_PASSWORD_SIZE) {
+    		return false;
+    	}
         User user = userService.findUserByEmail(request.getEmail());
         
         if(user == null) {

@@ -20,10 +20,12 @@ public class FavoriteService {
         return favoriteRepository.findByUserIdAndRecipeId(userId, recipeId).isPresent();
     }
 	@Transactional
-	public void deleteFavorite(Long userId, Long recipeId) {
+	public boolean deleteFavorite(Long userId, Long recipeId) {
 		if(isRecipeFavoritedByUser(userId, recipeId)) {
 	        favoriteRepository.deleteByUserIdAndRecipeId(userId, recipeId);
+	        return true;
 		}
+		return false;
     }
 	
 	public boolean addFavorite(Long userId, Long recipeId) {

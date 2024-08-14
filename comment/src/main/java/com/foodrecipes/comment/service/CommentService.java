@@ -39,11 +39,12 @@ public class CommentService {
         return commentRepository.save(comment);
     }
     
-    public void deleteCommentById(Long id) {
+    public boolean deleteCommentById(Long id) {
         if (commentRepository.existsById(id)) {
             commentRepository.deleteById(id);
+            return true;
         } else {
-            throw new RuntimeException("Comment not found with id: " + id);
+            return false;
         }
     }
 }

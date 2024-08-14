@@ -67,13 +67,8 @@ public class CommentController {
     }
 	
 	@DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deleteComment(@PathVariable Long id) {
-        try {
-            commentService.deleteCommentById(id);
-            return ResponseEntity.ok("Comment deleted successfully.");
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(404).body(e.getMessage());
-        }
+    public boolean deleteComment(@PathVariable Long id) {
+        return commentService.deleteCommentById(id);
     }
 	
 }
