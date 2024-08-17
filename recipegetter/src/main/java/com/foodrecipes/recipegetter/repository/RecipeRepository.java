@@ -24,4 +24,5 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 	
 	@Query(value = "SELECT id FROM recipe ORDER BY date_created DESC LIMIT ?1", nativeQuery = true)
     List<Long> findLastTenPercentIds(int limit);
+	
 }

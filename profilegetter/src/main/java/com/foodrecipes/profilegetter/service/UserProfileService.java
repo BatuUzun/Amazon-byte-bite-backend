@@ -42,4 +42,24 @@ public class UserProfileService {
 
         return orderedProfiles;
     }
+	
+	public List<String> getUsernamesInOrder(List<Long> ids) {
+	    // Fetch all profiles by IDs
+	    List<UserProfile> profiles = userProfileRepository.findByIdIn(ids);
+	    
+	    // Create a map for quick lookup
+	    Map<Long, String> usernameMap = profiles.stream()
+	            .collect(Collectors.toMap(UserProfile::getId, UserProfile::getUsername));
+
+	    // Order usernames according to the input IDs
+	    List<String> orderedUsernames = new ArrayList<>();
+	    for (Long id : ids) {
+	        String username = usernameMap.get(id);
+	        if (username != null) {
+	            orderedUsernames.add(username);
+	        }
+	    }
+
+	    return orderedUsernames;
+	}
 }

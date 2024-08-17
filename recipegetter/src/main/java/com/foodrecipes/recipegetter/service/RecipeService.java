@@ -3,13 +3,11 @@ package com.foodrecipes.recipegetter.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
 import com.foodrecipes.recipegetter.dto.RecipeSpecificDTO;
 import com.foodrecipes.recipegetter.entity.RecipeProjectionWithoutProfile;
 import com.foodrecipes.recipegetter.repository.RecipeRepository;
@@ -108,4 +106,5 @@ public class RecipeService {
     public List<RecipeProjectionWithoutProfile> findRecipesByIds(List<Long> ids){
     	return recipeRepository.findRecipesByIds(ids);
     }
+    
 }

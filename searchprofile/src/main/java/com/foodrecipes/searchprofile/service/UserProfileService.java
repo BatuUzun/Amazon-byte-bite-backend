@@ -15,8 +15,7 @@ public class UserProfileService {
 	@Autowired
 	private UserProfileRepository userProfileRepository;
 	
-	public List<UserProfile> searchUserProfilesByUsername(String username, int page) {
-        PageRequest pageRequest = PageRequest.of(page, Constants.PAGE_LIMIT); // First page with 5 results
-        return userProfileRepository.findByUsernameStartingWith(username, pageRequest);
+	public List<UserProfile> searchUserProfilesByUsername(String username) {
+        return userProfileRepository.findByUsernameStartingWith(username);
     }
 }

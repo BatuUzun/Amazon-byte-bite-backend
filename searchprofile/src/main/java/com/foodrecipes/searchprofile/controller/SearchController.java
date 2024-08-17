@@ -6,6 +6,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.foodrecipes.searchprofile.dto.SearchCriteria;
 import com.foodrecipes.searchprofile.entity.UserProfile;
@@ -21,10 +22,10 @@ public class SearchController {
 	private Environment environment;
 	
     @PostMapping("/search")
-    public List<UserProfile> searchUserProfiles(@RequestBody SearchCriteria searchCriteria) {
+    public List<UserProfile> searchUserProfiles(@RequestParam("query") String query) {
     	String port = environment.getProperty("local.server.port");
         System.out.println("port: " + port);
-        List<UserProfile> list = userProfileService.searchUserProfilesByUsername(searchCriteria.getUsername(), searchCriteria.getPage());
+        List<UserProfile> list = userProfileService.searchUserProfilesByUsername(query);
         for(int i = 0; i<list.size();i++) {
         	System.out.println(list.get(i).getProfilePicture());
         }

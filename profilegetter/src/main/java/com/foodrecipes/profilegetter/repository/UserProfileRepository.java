@@ -15,4 +15,7 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long>{
     Optional<UserProfileProjection> findUserProfileById(@Param("id") Long id);
 	
 	List<UserProfile> findByIdIn(List<Long> ids);
+
+	@Query("SELECT u.username FROM UserProfile u WHERE u.id IN :ids")
+    List<String> findUsernamesByIds(@Param("ids") List<Long> ids);
 }

@@ -76,4 +76,5 @@ public class RecipeController {
     public void addNewRecipeToCache(@RequestParam Long newRecipeId) {
         recipeService.addNewRecipeToCache(newRecipeId);
     }
+    
 }
