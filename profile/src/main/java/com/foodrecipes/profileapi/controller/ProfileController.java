@@ -42,7 +42,7 @@ public class ProfileController {
     private UserProfileService userProfileService;
 	
 	@PostMapping("/change-profile-picture")
-	public void changeProfilePicture(@RequestParam("file") MultipartFile file, @RequestParam("userId") Long userProfileId) {
+	public String changeProfilePicture(@RequestParam("file") MultipartFile file, @RequestParam("userId") Long userProfileId) {
 		ResultResponse response = null;
 		UserProfile userProfile = userProfileService.getUserProfileById(userProfileId);
 		if(userProfile != null) {
@@ -61,9 +61,9 @@ public class ProfileController {
 		    // You can now use imageName as needed
 		    System.out.println("Uploaded image name: " + imageName);
 		    System.out.println("User ID: " + userProfileId);
-	    
+		    return imageName;
 		}
-	    
+	    return "";
 	}
 	
 	@PostMapping("/add-user-follows")
