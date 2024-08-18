@@ -38,43 +38,6 @@ public class S3Controller {
 	    System.out.println(imageObject.getBucketName());
 	    return base64Image;
 	}
-	/*public ResponseEntity<byte[]> getImage(@PathVariable("fileName") String imageName) throws IOException {
-        S3Object imageObject = s3Service.getFileFromS3(imageName);
-        byte[] imageBytes = IOUtils.toByteArray(imageObject.getObjectContent());
-        
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG); // Adjust content type based on your image type
-        headers.setContentLength(imageBytes.length);
-        String port = environment.getProperty("local.server.port");
-        System.out.println("port: " + port);
-        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
-    }*/
 	
-	
-	@PostMapping("/download/images")
-    public ResponseEntity<List<String>> getImages(@RequestBody List<String> fileNames) {
-        List<String> images = new ArrayList<>();
-
-        try {
-            for (String fileName : fileNames) {
-                S3Object imageObject = s3Service.getFileFromS3(fileName);
-                byte[] imageBytes = IOUtils.toByteArray(imageObject.getObjectContent());
-
-                if (imageBytes != null) {
-                    String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-                    images.add(base64Image);
-                }
-            }
-        } catch (IOException e) {
-            // Log the error and return a 500 Internal Server Error response
-            // Replace 'logger' with your logging framework if needed
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON); // Adjust content type based on your image type
-
-        return new ResponseEntity<>(images, headers, HttpStatus.OK);
-    }
 	
 }
